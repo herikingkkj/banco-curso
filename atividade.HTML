@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>trabalho dos cara</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        #taskInput {
+            padding: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-left: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #ffffff;
+            margin: 5px 0;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        li:hover {
+            background: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Lista de compras</h2>
+
+    <input type="text" id="taskInput" placeholder="Digite algo pra comprar">
+    <button id="addBtn">Adicionar a lista</button>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        const input = document.getElementById("taskInput");
+        const button = document.getElementById("addBtn");
+        const list = document.getElementById("taskList");
+
+        button.addEventListener("click", function () {
+            const tasktext = input.value.trim();
+
+            if (tasktext === "") return;
+
+            const li = document.createElement("li");
+            li.textContent = tasktext;
+
+            li.addEventListener("click", function () {
+                list.removeChild(li);
+            });
+
+            list.appendChild(li);
+
+            input.value = "";
+
+        });    
+    </script>
+
+    <body>
+        <img src="sampaoli.jpg" width="400">
+        <h2>Futuro Treinador do Maior de Minas</h2>
+    </body>
+
+</html>
