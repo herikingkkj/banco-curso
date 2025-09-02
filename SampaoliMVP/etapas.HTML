@@ -1,0 +1,102 @@
+<!DOCTYPE html>  
+<html lang="pt-br">  
+<head>  
+  <meta charset="UTF-8" />  
+  <title>Lista de Compras</title>  
+  <style>  
+    body { font-family: Arial, sans-serif; padding: 20px; }  
+    #taskInput, #searchInput { padding: 5px; width: 220px; margin-bottom: 10px; }  
+    button { padding: 5px 10px; margin-left: 5px; }  
+    ul { list-style-type: none; padding: 0; }  
+    li { background: #ffffff; margin: 5px 0; padding: 10px; cursor: pointer; border-radius: 5px; }  
+    li:hover { background: #ff0000; color: #fff; }  
+    #searchInput { display: block; margin-bottom: 20px; margin-top: -15px; padding: 5px; width: 220px; }
+  </style>  
+</head>  
+<body>  
+  <h2>Lista de compras</h2>  
+  
+  <input type="text" id="taskInput" placeholder="Digite algo pra comprar" />  
+  <button id="addBtn">Adicionar à lista</button>  
+  <button id="clearBtn">Limpar tudo</button>  
+
+  <br><br>  
+  <input type="text" id="searchInput" placeholder="Pesquisar item..." />  
+  
+  <ul id="taskList"></ul>  
+  
+  <script>  
+    const input = document.getElementById("taskInput");  
+    const searchInput = document.getElementById("searchInput");  
+    const addBtn = document.getElementById("addBtn");  
+    const clearBtn = document.getElementById("clearBtn");  
+    const list = document.getElementById("taskList");  
+    const STORAGE_KEY = "listaCompras_v1";  
+  
+    function getSavedTasks() {  
+      try {  
+        const raw = localStorage.getItem(STORAGE_KEY);  
+        return raw ? JSON.parse(raw) : [];  
+      } catch (e) {  
+        console.warn("Falha ao ler do localStorage:", e);  
+        return [];  
+      }  
+    }  
+  
+    function saveTasks() {  
+      const tasks = Array.from(list.querySelectorAll("li")).map(li => li.textContent);  
+      try {  
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));  
+      } catch (e) {  
+        console.warn("Falha ao salvar no localStorage:", e);  
+      }  
+    }  
+  
+    function addTask(taskText) {  
+      const li = document.createElement("li");  
+      li.textContent = taskText;  
+  
+      li.addEventListener("click", () => {  
+        list.removeChild(li);  
+        saveTasks();  
+      });  
+  
+      list.appendChild(li);  
+    }  
+  
+    function loadTasks() {  
+      const tasks = getSavedTasks();  
+      tasks.forEach(t => addTask(t));  
+    }  
+  
+    addBtn.addEventListener("click", () => {  
+      const taskText = input.value.trim();  
+      if (!taskText) return;  
+      addTask(taskText);  
+      saveTasks();  
+      input.value = "";  
+      input.focus();  
+    });  
+  
+    input.addEventListener("keydown", (e) => {  
+      if (e.key === "Enter") addBtn.click();  
+    });  
+  
+    clearBtn.addEventListener("click", () => {  
+      list.innerHTML = "";  
+      localStorage.removeItem(STORAGE_KEY);  
+    });  
+  
+    searchInput.addEventListener("input", () => {  
+      const filter = searchInput.value.toLowerCase();  
+      const items = list.querySelectorAll("li");  
+      items.forEach(li => {  
+        const text = li.textContent.toLowerCase();  
+        li.style.display = text.includes(filter) ? "" : "none";  
+      });  
+    });  
+  
+    document.addEventListener("DOMContentLoaded", loadTasks);  
+  </script>  
+</body>  
+</html>
