@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<title>Receitas de Vó</title>
+<style>
+  body { font-family: Arial; max-width: 600px; margin: 20px auto; }
+  .receita { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+  .favorito { float: right; cursor: pointer; color: red; user-select:none; }
+  input, button { padding: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+  #btnVoltar { display: none; background-color: #eee; }
+</style>
+</head>
+<body>
+
+<h1>Receitas</h1>
+<input id="busca" placeholder="Buscar receita..." />
+<button id="btnFav">Mostrar Favoritas</button>
+<button id="btnVoltar">Voltar</button>
+<div id="lista"></div>
+
+<script>
+const receitas = [
+  {
+    id:1,
+    n:"Bolo de Chocolate",
+    i:[
+      "3 ovos",
+      "1 e meia xícara de chá de açúcar",
+      "Meia xícara de chá de óleo",
+      "1 xícara de chá de chocolate em pó",
+      "2 xícaras de chá de farinha de trigo",
+      "1 xícara de chá de água quente",
+      "1 colher de sopa de fermento em pó"
+    ],
+    p:[
+      "Pré-aqueça o forno a 180ºC.",
+      "Bata os ovos com o açúcar até ficar um creme claro.",
+      "Adicione o óleo e misture bem.",
+      "Acrescente o chocolate em pó e a farinha de trigo aos poucos.",
+      "Incorpore a água quente delicadamente.",
+      "Por último, misture o fermento em pó.",
+      "Despeje em uma forma untada e asse por aproximadamente 40 minutos."
+    ]
+  },
+  {
+    id:2,
+    n:"Bolinho de Chuva",
+    i:["Farinha","Açúcar","Ovos","Leite"],
+    p:[
+      "Misture todos os ingredientes até formar uma massa homogênea.",
+      "Aqueça o óleo em uma panela funda.",
+      "Frite pequenas porções da massa até dourar.",
+      "Escorra em papel absorvente e polvilhe açúcar e canela."
+    ]
+  },
+  {
+    id:3,
+    n:"Coxinha",
+    i:["Frango","Massa de coxinha","Farinha"],
+    p:[
+      "Cozinhe e desfie o frango.",
+      "Prepare a massa conforme instruções.",
+      "Recheie a massa com o frango desfiado.",
+      "Modele em formato de coxinha, empane e frite até dourar."
+    ]
+  },
+  {
+    id:4,
+    n:"Pão de Queijo",
+    i:["Polvilho","Queijo","Ovos"],
+    p:[
+      "Misture todos os ingredientes até formar uma massa.",
+      "Modele bolinhas e coloque em uma assadeira.",
+      "Asse em forno preaquecido a 180ºC até dourar."
+    ]
+  },
+  {
+    id:5,
+    n:"Brigadeiro",
+    i:["Leite condensado","Cacau","Manteiga"],
+    p:[
+      "Misture todos os ingredientes em uma panela.",
+      "Cozinhe em fogo baixo mexendo sempre até desgrudar do fundo.",
+      "Deixe esfriar, enrole e passe no granulado."
+    ]
+  }
+];
+
+let favs=JSON.parse(localStorage.getItem("favs"))||[];
+let filtro="todas", busca="";
+
+const lista=document.getElementById("lista"),
+  buscaInp=document.getElementById("busca"),
+  btnFav=document.getElementById("btnFav"),
+  btnVoltar=document.getElementById("btnVoltar");
+
+function salvaFavs(){ localStorage.setItem("favs", JSON.stringify(favs)); }
+
+function render(){
+  lista.innerHTML="";
+  let mostradas=receitas.filter(r=> (filtro==="favoritas"? favs.includes(r.id):true) && r.n.toLowerCase().includes(busca.toLowerCase()));
+
+  if(mostradas.length === 0){
+    lista.textContent = filtro === "favoritas" ? "Nenhuma receita favorita." : "Nenhuma receita.";
+  } else {
+    mostradas.forEach(r=>{
+      const d=document.createElement("div");
+      d.className="receita";
+      d.innerHTML=`
+        <h3>${r.n} <span class="favorito" title="Favoritar">${favs.includes(r.id) ? "❤️":"🤍"}</span></h3>
+        <b>Ingredientes:</b> <ul>${r.i.map(i=>"<li>"+i+"</li>").join("")}</ul>
+        <b>Preparo:</b> ${r.p.map(passo => `<p>${passo}</p>`).join('')}
+      `;
+      d.querySelector(".favorito").onclick=()=>{
+        favs.includes(r.id)?favs=favs.filter(id=>id!==r.id):favs.push(r.id);
+        salvaFavs();
+        render();
+      };
+      lista.appendChild(d);
+    });
+  }
+
+  btnFav.style.display = filtro === "favoritas" ? "none" : "block";
+  btnVoltar.style.display = filtro === "favoritas" ? "block" : "none";
+}
+
+buscaInp.oninput=e=>{
+  busca=e.target.value;
+  render();
+};
+
+btnFav.onclick=()=>{
+  filtro="favoritas";
+  render();
+};
+
+btnVoltar.onclick=()=>{
+  filtro="todas";
+  render();
+};
+
+render();
+</script>
+
+</body>
+</html>
+
+https://receitas.globo.com/tipos-de-prato/bolos/bolo-de-chocolate-facil.ghtml
