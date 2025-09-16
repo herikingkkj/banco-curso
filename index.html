@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<title>Receitas de Vó</title>
+<style>
+  body { font-family: Arial; max-width: 600px; margin: 20px auto; }
+  .receita { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+  .favorito { float: right; cursor: pointer; color: red; user-select:none; }
+  input, button { padding: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+  #btnVoltar { display: none; background-color: #eee; }
+</style>
+</head>
+<body>
+
+<h1>Receitas</h1>
+<input id="busca" placeholder="Buscar receita..." />
+<button id="btnFav">Mostrar Favoritas</button>
+<button id="btnVoltar">Voltar</button>
+<div id="lista"></div>
+
+<script>
+const receitas = [
+  {
+    id:1,
+    n:"Bolo de Chocolate",
+    img:"https://receitadaboa.com.br/wp-content/uploads/2024/12/bolo-de-chocolate.jpg",
+    i:[
+      "3 ovos",
+      "1 e meia xícara de chá de açúcar",
+      "Meia xícara de chá de óleo",
+      "1 xícara de chá de chocolate em pó",
+      "2 xícaras de chá de farinha de trigo",
+      "1 xícara de chá de água quente",
+      "1 colher de sopa de fermento em pó"
+    ],
+    p:[
+      "Pré-aqueça o forno a 180ºC.",
+      "Bata os ovos com o açúcar até ficar um creme claro.",
+      "Adicione o óleo e misture bem.",
+      "Acrescente o chocolate em pó e a farinha de trigo aos poucos.",
+      "Incorpore a água quente delicadamente.",
+      "Por último, misture o fermento em pó.",
+      "Despeje em uma forma untada e asse por aproximadamente 40 minutos."
+    ]
+  },
+  {
+    id:2,
+    n:"Bolinho de Chuva",
+    img:"https://www.receiteria.com.br/wp-content/uploads/bolinho-de-chuva-capa.png",
+    i:[
+      "2 xícaras de chá de Farinha de trigo",
+      "1 xícara de chá de Açúcar",
+      "2 Ovos",
+      "1 xícara de chá de Leite",
+    ],
+    p:[
+      "Misture todos os ingredientes em uma tigela até formar uma massa homogênea.",
+      "Aqueça óleo em uma panela funda (fogo médio).",
+      "Com a ajuda de uma colher, coloque porções da massa no óleo quente.",
+      "Frite até os bolinhos ficarem dourados por fora.",
+      "Retire com uma escumadeira e coloque sobre papel toalha para escorrer.",
+      "Finalize polvilhando açúcar e canela por cima.",
+    ]
+  },
+  {
+    id:3,
+    n:"Coxinha",
+    img:"https://static.vecteezy.com/system/resources/thumbnails/022/581/560/small_2x/brasilian-snack-coxinha-png.png",
+    i:[
+      "500 g Frango cozido e desfiado (para o recheio)",
+      "2 xícaras de chá de Massa de coxinha (ou batata/mandioca cozida amassada)",
+      "1 xícara de chá de Farinha de rosca (para empanar)",
+      "2 xícaras de chá de Farinha de trigo",
+      "2 Ovos",
+      "Óleo (para fritar)",
+    ],
+    p:[
+      "Cozinhe o frango, desfie e tempere a gosto",
+      "Prepare a massa: em uma panela, ferva água/leite com manteiga e caldo de galinha, depois adicione farinha de trigo de uma vez e mexa até desgrudar do fundo da panela.",
+      "Deixe a massa esfriar um pouco e sove até ficar lisa.",
+      "Pegue pequenas porções da massa, abra na mão, recheie com o frango desfiado e feche em formato de coxinha.",
+      "Passe as coxinhas no ovo batido e depois na farinha de rosca.",
+      "Frite em óleo quente até ficarem douradas.",
+      "Retire e coloque sobre papel toalha para escorrer o excesso de óleo.",
+    ]
+  },
+  {
+    id:4,
+    n:"Pão de queijo",
+    img:"https://static.vecteezy.com/system/resources/previews/021/217/624/non_2x/cheese-bread-basket-brazilian-snack-pao-de-queijo-png.png",
+    i:[
+      "500 g de polvilho azedo ou doce",
+      "250 g de queijo (meia cura, parmesão ou minas padrão ralado)",
+      "2 ovos",
+      "1 xícara de leite",
+      "1/2 xícara de óleo",
+      "Sal a gosto",
+    ],
+    p:[
+      "Em uma panela, ferva o leite com o óleo e o sal.",
+      "Despeje esse líquido quente sobre o polvilho em uma tigela e misture bem (vai virar uma farofa úmida).",
+      "Deixe amornar e adicione os ovos, um de cada vez, misturando.",
+      "Acrescente o queijo ralado e amasse até formar uma massa homogênea e macia.",
+      "Modele bolinhas do tamanho que preferir.",
+      "Coloque em uma assadeira untada (ou forrada com papel manteiga).",
+      "Leve ao forno preaquecido a 180 °C até os pãezinhos crescerem e dourarem (cerca de 25 a 30 minutos).",
+    ]
+  },
+  {
+    id:5,
+    n:"Brigadeiro",
+    img:"https://static.vecteezy.com/system/resources/previews/065/847/606/non_2x/bragedeiro-chocolate-ball-on-transparent-background-png.png",
+    i:[
+      "1 lata de leite condensado",
+      "2 colheres de sopa de cacau em pó (ou achocolatado)",
+      "1 colher de sopa de manteiga",
+      "Granulado para enrolar",
+    ],
+    p:[
+      "Em uma panela, coloque o leite condensado, o cacau em pó e a mantei",
+      "Leve ao fogo baixo, mexendo sempre para não grudar no fundo.",
+      "Cozinhe até a mistura engrossar e começar a desgrudar do fundo da panela (ponto de brigadeiro).",
+      "Retire do fogo e transfira para um prato untado com manteig",
+      "Deixe esfriar.",
+      "Com as mãos untadas, enrole pequenas porções da massa em formato de bolinhas.",
+      "Passe no granulado até cobrir completamente.",
+      "Coloque em forminhas de papel e sirva.",
+    ]
+  },
+];
+
+let favs=JSON.parse(localStorage.getItem("favs"))||[];
+let filtro="todas", busca="";
+
+const lista=document.getElementById("lista"),
+  buscaInp=document.getElementById("busca"),
+  btnFav=document.getElementById("btnFav"),
+  btnVoltar=document.getElementById("btnVoltar");
+
+function salvaFavs(){ localStorage.setItem("favs", JSON.stringify(favs)); }
+
+function render(){
+  lista.innerHTML="";
+  let mostradas=receitas.filter(r=> (filtro==="favoritas"? favs.includes(r.id):true) && r.n.toLowerCase().includes(busca.toLowerCase()));
+
+  if(mostradas.length === 0){
+    lista.textContent = filtro === "favoritas" ? "Nenhuma receita favorita." : "Nenhuma receita.";
+  } else {
+    mostradas.forEach(r=>{
+      const d=document.createElement("div");
+      d.className="receita";
+      d.innerHTML=`
+        <h3>${r.n} <span class="favorito" title="Favoritar">${favs.includes(r.id) ? "❤️":"🤍"}</span></h3>
+        ${r.img ? `<img src="${r.img}" alt="${r.n}" style="max-width:100%; border-radius:8px; margin:10px 0;">` : ""}
+        <b>Ingredientes:</b> <ul>${r.i.map(i=>"<li>"+i+"</li>").join("")}</ul>
+        <b>Preparo:</b> ${r.p.map(passo => `<p>${passo}</p>`).join('')}
+      `;
+      d.querySelector(".favorito").onclick=()=>{
+        favs.includes(r.id)?favs=favs.filter(id=>id!==r.id):favs.push(r.id);
+        salvaFavs();
+        render();
+      };
+      lista.appendChild(d);
+    });
+  }
+
+  btnFav.style.display = filtro === "favoritas" ? "none" : "block";
+  btnVoltar.style.display = filtro === "favoritas" ? "block" : "none";
+}
+
+buscaInp.oninput=e=>{
+  busca=e.target.value;
+  render();
+};
+
+btnFav.onclick=()=>{
+  filtro="favoritas";
+  render();
+};
+
+btnVoltar.onclick=()=>{
+  filtro="todas";
+  render();
+};
+
+render();
+</script>
+
+</body>
+</html>
