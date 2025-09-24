@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tarefas PWA</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4CAF50">
+</head>
+<body>
+  <div class="app">
+    <h1>✅ Minhas Tarefas</h1>
+    <div class="task-input">
+      <input type="text" id="taskInput" placeholder="Digite uma nova tarefa...">
+      <button id="addTask">Adicionar</button>
+    </div>
+
+    <div class="filters">
+      <button data-filter="all" class="active">Todas</button>
+      <button data-filter="pending">Pendentes</button>
+      <button data-filter="completed">Concluídas</button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 Buscar tarefa...">
+    </div>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js")
+        .then(() => console.log("Service Worker registrado!"))
+        .catch(err => console.error("Erro no Service Worker:", err));
+    }
+  </script>
+</body>
+</html>
