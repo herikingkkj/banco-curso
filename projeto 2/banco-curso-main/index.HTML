@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dois Amigos - Auto Peças</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f7f7f7, #eaeaea);
+      color: #222;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.dark {
+      background: linear-gradient(135deg, #222, #111);
+      color: #f1f1f1;
+    }
+
+    
+    header {
+      background: #ff4500;
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .search-box {
+      flex: 1;
+      margin: 10px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .cart {
+      font-size: 22px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .dark-toggle {
+      background: #fff;
+      color: #ff4500;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+
+    
+    .carrossel {
+      position: relative;
+      overflow: hidden;
+      height: 200px;
+      background: #000;
+    }
+
+    .slides {
+      display: flex;
+      width: 300%;
+      animation: slide 12s infinite;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      33% { transform: translateX(-100%); }
+      66% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+
+    
+    .categorias {
+      display: flex;
+      overflow-x: auto;
+      background: #fff;
+      padding: 10px;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .categoria {
+      text-align: center;
+      background: #ff6347;
+      color: white;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 12px;
+      transition: 0.3s;
+    }
+
+    .categoria:hover {
+      background: #ff2e00;
+    }
+
+    
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .produto {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    body.dark .produto {
+      background: #1e1e1e;
+      box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+    }
+
+    .produto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .produto img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: contain;
+      background: #f1f1f1;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    body.dark .produto img {
+      background: #333;
+    }
+
+    .preco {
+      font-weight: bold;
+      margin: 12px 0 6px;
+      font-size: 18px;
+      color: #222;
+    }
+
+    body.dark .preco {
+      color: #f1f1f1;
+    }
+
+    .desconto {
+      color: #ff0000;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .btn-comprar {
+      background: linear-gradient(90deg, #ff6347, #ff4500);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .btn-comprar:hover {
+      background: linear-gradient(90deg, #ff4500, #e63900);
+      transform: scale(1.05);
+    }
+
+    
+    .carrinho-container {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 300px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+      padding: 20px;
+      transition: 0.3s;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+
+    body.dark .carrinho-container {
+      background: #1e1e1e;
+      color: #f1f1f1;
+    }
+
+    .carrinho-container.ativo {
+      right: 0;
+    }
+
+    .carrinho-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .carrinho-header h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #ff4500;
+    }
+
+    .btn-fechar {
+      background: #ff4500;
+      border: none;
+      color: #fff;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .carrinho-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+    }
+
+    .total {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .search-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <h1>Dois Amigos</h1>
+    <div class="search-box">
+      <input type="text" id="search" placeholder="Buscar peças automotivas...">
+    </div>
+    <button class="dark-toggle" onclick="toggleDark()">🌙</button>
+    <div class="cart" onclick="toggleCarrinho()">🛒</div>
+  </header>
+
+  
+  <div class="carrossel">
+    <div class="slides">
+      <img src="https://via.placeholder.com/800x200/ff4500/fff?text=Promoção+30%25" alt="Banner 1">
+      <img src="https://via.placeholder.com/800x200/000/fff?text=Frete+Grátis+acima+de+R$99" alt="Banner 2">
+      <img src="https://via.placeholder.com/800x200/008000/fff?text=Novidades+todo+dia" alt="Banner 3">
+    </div>
+  </div>
+
+  
+  <div class="categorias">
+    <div class="categoria" onclick="mostrarTodos()">Todos</div>
+    <div class="categoria" onclick="filtrar('Bico')">Bicos</div>
+    <div class="categoria" onclick="filtrar('Bobina')">Bobinas</div>
+    <div class="categoria" onclick="filtrar('Bomba')">Bombas</div>
+    <div class="categoria" onclick="filtrar('Filtro')">Filtros</div>
+    <div class="categoria" onclick="filtrar('Junta')">Juntas</div>
+    <div class="categoria" onclick="filtrar('Turbo')">Turbos</div>
+    <div class="categoria" onclick="filtrar('Vela')">Velas</div>
+    <div class="categoria" onclick="filtrar('Transmissão')">Transmissões</div>
+    <div class="categoria" onclick="filtrar('Comando')">Comandos</div>
+  </div>
+
+  
+  <section class="produtos" id="produtos">
+    <div class="produto" data-cat="Bico">
+      <img src="https://1100autopecas.com.br/wp-content/uploads/2020/02/Bico-Injetor-de-Combustivel-Magnet-Marelli-50102902-–-Fiat-Siena-Strada.jpg" alt="Produto 1">
+      <h3>Bico Injetor</h3>
+      <p class="preco">R$ 120,00</p>
+      <p class="desconto">-10%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+
+    <div class="produto" data-cat="Bobina">
+      <img src="https://tfdcu6.vtexassets.com/arquivos/ids/210616-800-auto?v=638229635539100000&width=800&height=auto&aspect=true" alt="Produto 2">
+      <h3>Bobina de Ignição</h3>
+      <p class="preco">R$ 180,00</p>
+      <p class="desconto">-12%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+
+    <div class="produto" data-cat="Bomba">
+      <img src="https://images.tcdn.com.br/img/img_prod/476243/bomba_combustivel_bomba_combustivel_completa_spin_2013_a_2023_2653901_1_2a3614ba41769859c037a78f5324ac7f_20240531175836.jpg" alt="Produto 3">
+      <h3>Bomba de Combustível</h3>
+      <p class="preco">R$ 250,00</p>
+      <p class="desconto">-15%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+
+    <div class="produto" data-cat="Filtro">
+      <img src="https://a-static.mlcdn.com.br/800x560/filtro-ar-para-moto-base-borracha-50mm-azul-rci04az-race-chrome/thorracing/9482498807/68f139df57c8c059d301bfa205fad7b6.jpeg" alt="Produto 4">
+      <h3>Filtro de Ar</h3>
+      <p class="preco">R$ 80,00</p>
+      <p class="desconto">-5%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+
+    <div class="produto" data-cat="Junta">
+      <img src="https://dcdn-us.mitiendanube.com/stores/795/638/products/jta-cab1-47779e66cba70ad86516790828831404-1024-1024.webp" alt="Produto 5">
+      <h3>Junta do Motor</h3>
+      <p class="preco">R$ 90,00</p>
+      <p class="desconto">-7%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+
+    <div class="produto" data-cat="Turbo">
+      <img src="https://turbogarage.com.br/wp-content/uploads/2021/06/GTX4720-2.jpg" alt="Produto 6">
+      <h3>Turbo Esportivo</h3>
+      <p class="preco">R$ 1.200,00</p>
+      <p class="desconto">-20%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+
+    <div class="produto" data-cat="Vela">
+      <img src="https://31b93296e4855c6e.cdn.gocache.net/loja/imagens/full/vela-super-plus-1-eletrodo-bosch01.png" alt="Produto 7">
+      <h3>Vela de Ignição</h3>
+      <p class="preco">R$ 35,00</p>
+      <p class="desconto">-8%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+
+    <div class="produto" data-cat="Transmissão">
+      <img src="https://media.licdn.com/dms/image/v2/C4D12AQGBkNMF1PRpXQ/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1621110252793?e=2147483647&v=beta&t=frpJjPYWZk8yn6LDOdyrKA8DRpaxM7KGNEb19r5L5bo" alt="Produto 8">
+      <h3>Kit Transmissão</h3>
+      <p class="preco">R$ 4.500,00</p>
+      <p class="desconto">-18%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+
+    <div class="produto" data-cat="Comando">
+      <img src="https://www.taranto.com.br/wp-content/uploads/2020/09/comando-taranto-site.jpg" alt="Produto 9">
+      <h3>Comando de Válvulas</h3>
+      <p class="preco">R$ 600,00</p>
+      <p class="desconto">-10%</p>
+      <button class="btn-comprar">Comprar</button>
+    </div>
+  </section>
+
+  <!-- Carrinho -->
+  <div class="carrinho-container" id="carrinho">
+    <div class="carrinho-header">
+      <h2>Carrinho</h2>
+      <button class="btn-fechar" onclick="toggleCarrinho()">X</button>
+    </div>
+    <div id="itens-carrinho"></div>
+    <p class="total" id="total">Total: R$ 0,00</p>
+  </div>
+
+  <script>
+    
+    function filtrar(categoria) {
+      const produtos = document.querySelectorAll('.produto');
+      produtos.forEach(prod => {
+        prod.style.display = prod.getAttribute('data-cat') === categoria ? "block" : "none";
+      });
+    }
+
+   
+    function mostrarTodos() {
+      document.querySelectorAll('.produto').forEach(prod => prod.style.display = "block");
+    }
+
+    
+    const search = document.getElementById('search');
+    search.addEventListener('input', () => {
+      const termo = search.value.toLowerCase();
+      document.querySelectorAll('.produto').forEach(prod => {
+        const nome = prod.querySelector('h3').textContent.toLowerCase();
+        prod.style.display = nome.includes(termo) ? "block" : "none";
+      });
+    });
+
+   
+    let carrinho = [];
+    const carrinhoEl = document.getElementById('itens-carrinho');
+    const totalEl = document.getElementById('total');
+
+    document.querySelectorAll('.btn-comprar').forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        const produto = btn.closest('.produto');
+        const nome = produto.querySelector('h3').textContent;
+        const preco = parseFloat(produto.querySelector('.preco').textContent);
+
+        carrinho.push({ nome, preco });
+        atualizarCarrinho();
+        toggleCarrinho();
+      });
+    });
+
+    function atualizarCarrinho() {
+      carrinhoEl.innerHTML = "";
+      let total = 0;
+      carrinho.forEach(item => {
+        carrinhoEl.innerHTML += `<div class="carrinho-item">${item.nome} - R$ ${item.preco.toFixed(2)}</div>`;
+        total += item.preco;
+      });
+      totalEl.textContent = "Total: R$ " + total.toFixed(2);
+    }
+
+    function toggleCarrinho() {
+      document.getElementById('carrinho').classList.toggle('ativo');
+    }
+
+    
+    function toggleDark() {
+      document.body.classList.toggle('dark');
+    }
+  </script>
+</body>
+</html>
