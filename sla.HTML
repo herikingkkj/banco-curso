@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Loja Proz</title>
+</head>
+
+<body>
+    <h1>Loja Proz</h1>
+    <h2>Cadastrar Produto</h2>
+
+    <form action="cadastrarProduto" method="post">
+        <p>ID:</p> <input name="ID"><br>
+        <p>Produto:</p> <input name="produto"><br>
+        <p>Preço:</p> <input name="preco"><br>
+        <p>Descrição:</p> <input name="descricao"><br>
+        <p>Imagem:</p> <input type="file" name="arquivo"><br>
+
+        <p>Categoria:</p> 
+        <select name="categoria">
+            <option value="1">Notebook</option>
+            <option value="2">Celulares</option>
+            <option value="3">Hardware</option>
+        </select>
+
+        <br><br>
+        <input type="submit" value="Cadastrar">
+    </form>
+</body>
+</html>
