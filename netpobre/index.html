@@ -2,18 +2,23 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Filmes</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js" defer></script>
 </head>
 <body>
+    <div class="loader" id="loader">
+    <div class="spinner">
+    <p>aguarde, carregando informações...</p>
+    </div>
     <header class="header">
     <div class="container header-conteudo">
         <h1 class="logo"><span>Lista de Filmes</span></h1>
         <nav class="menu">
-            <a href="#">Início</a>
-            <a href="#">Filmes</a>
-            <a href="#">Séries</a>
+            <a href="#" id="inicio"> Início</a>
+            <a href="#" id="filmes"> Filmes</a>
+            <a href="#" id="series"> Séries</a>
         </nav>
     </div>
 </header>
@@ -21,12 +26,15 @@
 <main>
     <section class="pesquisa section">
         <div class=" container pesquisa-conteudo">
-            <input type="text" placeholder="pesquisar por filme" id="pesquisa">
-            <button class="pesquisa-button">
+            <input type="text" placeholder="pesquisar por filme" id="campoPesquisa">
+            <button class="pesquisa-button" id="botaoPesquisa">
             <img src="assets/ícones/search2.svg" alt="Pesquisar">
         </button>
         </div>
     </section>
+    <section class="exibeFilmes-section">
+        <div id="filmesGrid"></div>
+        </section>
 </main>
 <footer class= "footer">
     <p>Desenvolvido por Paulo e Hérick</p>
