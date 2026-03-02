@@ -6,16 +6,18 @@
     <title>Catálogo de Filmes</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js" defer></script>
+    <scrip src="js/global.js"></script>
 </head>
 <body>
     <div class="loader" id="loader">
-    <div class="spinner">
+    <div class="spinner"></div>
     <p>aguarde, carregando informações...</p>
     </div>
     <header class="header">
     <div class="container header-conteudo">
-        <h1 class="logo"><span>Lista de Filmes</span></h1>
+        <h1 class="logo"><span>NetPobre</span></h1>
         <nav class="menu">
+            <button id="botaoTema">Trocar tema</button>
             <a href="#" id="inicio"> Início</a>
             <a href="#" id="filmes"> Filmes</a>
             <a href="#" id="series"> Séries</a>
@@ -26,7 +28,7 @@
 <main>
     <section class="pesquisa section">
         <div class=" container pesquisa-conteudo">
-            <input type="text" placeholder="pesquisar por filme" id="campoPesquisa">
+            <input type="text" placeholder="Qual filme você gostaria?" id="campoPesquisa">
             <button class="pesquisa-button" id="botaoPesquisa">
             <img src="assets/ícones/search2.svg" alt="Pesquisar">
         </button>

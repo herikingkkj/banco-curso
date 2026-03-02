@@ -51,6 +51,8 @@ body {
 }
 .pesquisa-section {
     margin: 2rem 0;
+    background-color: var(--branco);
+    border: var(--vermelho);
 }
 .pesquisa-conteudo {
     display: flex;
@@ -61,7 +63,7 @@ body {
     width: 60%;
     padding: 0.7rem;
     border-radius: 20px;
-    border: none;
+    border: 1px solid var(--vermelho);
     outline: none;
     font-size: 1rem;
 }
@@ -143,4 +145,14 @@ body {
 .fade-in {
     opacity: 1;
     transform: translateY(0);
+}
+
+body.tema-claro{
+    --preto: #ffffff;
+    --branco: #000000;
+}
+
+.logo span {
+    color: var(--vermelho);
+    font-size: clamp(1.8rem, 4vw, 3rem)
 }

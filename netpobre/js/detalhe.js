@@ -42,7 +42,7 @@ function renderizarDetalhes(itens) {
                 <h2>${titulo}</h2>
                 <p>Data: ${dataLancamento || "Data não disponível"}<br>
                 Nota: ${itens.vote_average}<br>
-                ${item.tagline}<br>
+                ${itens.tagline}<br>
                 ${itens.overview}</p>
             </div>
         </div>
@@ -83,3 +83,14 @@ async function requisicaoURL(url) {
         filmesGrid.innerHTML = "<p> Erros ao carregar Filmes.</p>";
     }
 }
+
+window.addEventListener("load", function () {
+    const loader = this.document.getElementById("loader");
+    if (loader) {
+        loader.style.transition = "opacity 0.5s ease";
+        loader.style.opacity = "0";
+        setTimeout(() => {
+            loader.style.display = "none";
+        }, 500);
+     }
+});
