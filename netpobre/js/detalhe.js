@@ -62,7 +62,7 @@ window.addEventListener("load", function () {
      }
 });
 
-async function requisicaoURL(url) {}
+async function requisicaoURL(url) {
     try {
         filmesGrid.classList.add("fade-out");
         const response = await fetch(url);
@@ -79,4 +79,7 @@ async function requisicaoURL(url) {}
             }, 300);
         }, 200);
     } catch (error) {
+        console.error("Erro:", error) ;
+        filmesGrid.innerHTML = "<p> Erros ao carregar Filmes.</p>";
     }
+}
