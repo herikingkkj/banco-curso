@@ -11,14 +11,22 @@ const series = document.getElementById("series");
 
 async function requisicaoURL(url) {
     try {
+        filmesGrid.classList.add("fade-out");
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error("Erro na requisição");
         }
         const data = await response.json();
-        renderizarMidia(data.results);
+        setTimeout(() => {
+            renderizarMidia(data.results);
+            filmesGrid.classList.remove("fade-out");
+            filmesGrid.classList.add("fade-in");
+            setTimeout(() => {
+                filmesGrid.classList.remove("fade-in");
+            }, 300);
+        }, 200);
     } catch (error) {
-        console.error("Erro:, error") ;
+        console.error("Erro:", error) ;
         filmesGrid.innerHTML = "<p> Erros ao carregar Filmes.</p>";
     }
 }
@@ -33,32 +41,31 @@ function renderizarMidia(filmes) {
         const card = document.createElement("div");
         card.classList.add("card");
         const imagem = filme.poster_path
-        ? IMAGEM_URL + filme.poster_path
-        : "";
-        if(filme.title){
+            ? IMAGEM_URL + filme.poster_path
+            : "";
+        if (filme.title) {
             card.innerHTML = `
-            <img src="${imagem}" alt="${filme.title}">
-            <h3>${filme.title}</h3>
-            <p>${filme.overview}</p>
+                <img src="${imagem}" alt="${filme.title}">
+                <h3>${filme.title}</h3>
+                <p>${filme.overview}</p>
+            `;
+        } else {
+            // caso seja série/TV ou outro tipo
+            card.innerHTML = `
+                <img src="${imagem}" alt="${filme.name}">
+                <h3>${filme.name}</h3>
+                <p>${filme.overview || ""}</p>
             `;
         }
         card.addEventListener("click", () => {
-            window.location.href = pages/detalhe.html?id=$
-        }
-        }else{
-            card.innerHTML = ` 
-            <img src="${imagem}" alt="${filme.name}">
-            <h3>${filme.name}</h3>
-            `;
-                   /*     <p>${filme.vote_average}
-                ${filme.overview}
-                ${filme.genre_ids}
-                ${filme.release_date}
-            </p>*/
-        }
+            window.location.href = `pages/detalhe.html?id=${filme.id}&type=${filme.media_type}`;
+        });
+        filmesGrid.appendChild(card);
+    });
+}
     
     filmesGrid.appendChild(card)
-    });}
+    ;
 
 function pesquisaGeral() {
     const informacao = campoPesquisa.value.trim();
@@ -112,21 +119,3 @@ window.addEventListener("load", function () {
         }, 500);
      }
 });
-async function requisicaoURL(url) {}
-    try {
-        filmesGrid.classList.add("fade-out");
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error("Erro na requisição");
-        }
-        const data = await response.json();
-        setTimeout(() => {
-            renderizarMidia(data.results);
-            filmesGrid.classList.remove("fade-out");
-            filmesGrid.classList.add("fade-in");
-            setTimeout(() => {
-                filmesGrid.classList.remove("fade-in");
-            }, 300);
-        }, 200);
-    } catch (error) {
-    }
