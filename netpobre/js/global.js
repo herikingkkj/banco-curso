@@ -23,4 +23,7 @@ botaoTema.addEventListener("click", () => {
       ? "claro"
       :"escuro";
       localStorage.setItem("tema", temaAtual)
+      botaoTema.textContent = document.body.classList.contains
+      ("tema-claro") ?"🌙" : "☀️";
 });
+

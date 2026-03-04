@@ -171,11 +171,47 @@ body {
 }
 
 body.tema-claro{
-    --preto: #444;
+    --preto: #ffffff;
     --branco: #000000;
 }
 
 .logo span {
     color: var(--vermelho);
     font-size: clamp(1.8rem, 4vw, 3rem)
+}
+
+#filtroGenero {
+    background-color: var(--vermelho);
+    border: none;
+    width: auto; 
+    transition: 0.3s;
+    border-bottom: 2px solid var(--vermelho)
+}
+
+#filtroAno {
+    background-color: var(--vermelho);
+    border: none;
+    width: auto; 
+    transition: 0.3s;
+    border-bottom: 2px solid var(--vermelho)
+}
+
+#filtroNota {
+    background-color: var(--vermelho);
+    border: none;
+    width: auto; 
+    transition: 0.3s;
+    border-bottom: 2px solid var(--vermelho)
+}
+
+#filtroPais {
+    background-color: var(--vermelho);
+    border: none;
+    width: auto; 
+    transition: 0.3s;
+    border-bottom: 2px solid var(--vermelho)
+}
+
+.detalhes-card{
+    display: flex;
 }

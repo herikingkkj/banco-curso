@@ -1,45 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Filmes</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js" defer></script>
-    <scrip src="js/global.js"></script>
+    <script src="js/global.js" defer></script>
 </head>
+
 <body>
     <div class="loader" id="loader">
-    <div class="spinner"></div>
-    <p>aguarde, carregando informações...</p>
+        <div class="spinner"></div>
+        <p>aguarde, carregando informações...</p>
     </div>
     <header class="header">
-    <div class="container header-conteudo">
-        <h1 class="logo"><span>NetPobre</span></h1>
-        <nav class="menu">
-            <button id="botaoTema">☀️</button>
-            <a href="#" id="inicio"> Início</a>
-            <a href="#" id="filmes"> Filmes</a>
-            <a href="#" id="series"> Séries</a>
-        </nav>
-    </div>
-</header>
-
-<main>
-    <section class="pesquisa section">
-        <div class=" container pesquisa-conteudo">
-            <input type="text" placeholder="Qual filme você gostaria?" id="campoPesquisa">
-            <button class="pesquisa-button" id="botaoPesquisa">
-            <img src="assets/ícones/search2.svg" alt="Pesquisar">
-        </button>
+        <div class="container header-conteudo">
+            <h1 class="logo"><span>NetPobre</span></h1>
+            <nav class="menu">
+                <button id="botaoTema">☀️</button>
+                <a href="#" id="inicio"> Início</a>
+                <a href="#" id="filmes"> Filmes</a>
+                <a href="#" id="series"> Séries</a>
+            </nav>
         </div>
-    </section>
-    <section class="exibeFilmes-section">
-        <div id="filmesGrid"></div>
-        </section>
-</main>
-<footer class= "footer">
-    <p>Desenvolvido por Paulo e Hérick</p>
-</footer>
+        <div>
+            <header class="header">
+                <div class="container header-conteudo">
+                    <select id="filtroGenero"></select>
+                    <select id="filtroAno"></select>
+                    <select id="filtroNota">
+                        <option value="">Qualquer nota</option>
+                        <option value="5">5+</option>
+                        <option value="6">6+</option>
+                        <option value="7">7+</option>
+                        <option value="8">8+</option>
+                    </select>
+                    <select id="filtroPais">
+                        <option value="">Todos os países</option>
+                        <option value="US">Estados Unidos</option>
+                        <option value="BR">Brasil</option>
+                        <option value="KR">Coreia do Sul</option>
+                        <option value="JP">Japão</option>
+                        <option value="ES">Espanha</option>
+                        <option value="FR">França</option>
+                        <option value="GB">Reino Unido</option>
+                    </select>
+                </div>
+            </header>
+
+            <main>
+                <section class="pesquisa section">
+                    <div class="container pesquisa-conteudo">
+                        <input type="text" placeholder="Qual filme você gostaria?" id="campoPesquisa">
+                        <button class="pesquisa-button" id="botaoPesquisa">
+                            <img src="assets/ícones/search2.svg" alt="Pesquisar">
+                        </button>
+                    </div>
+                </section>
+                <section class="exibeFilmes-section">
+                    <div id="filmesGrid"></div>
+                </section>
+            </main>
+            <footer class="footer">
+                <p>Desenvolvido por Paulo e Hérick</p>
+            </footer>
 </body>
+
 </html>

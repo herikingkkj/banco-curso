@@ -23,7 +23,7 @@ async function requisicaoURL(url) {
             }, 300);
         }, 200);
     } catch (error) {
-        console.error("Erro:", error) ;
+        console.error("Erro:", error);
         filmesGrid.innerHTML = "<p> Erros ao carregar Filmes.</p>";
     }
 }
@@ -45,16 +45,13 @@ function renderizarMidia(filmes) {
             card.innerHTML = `
                 <img src="${imagem}" alt="${filme.title}">
                 <h3>${filme.title}</h3>
-                <p>${filme.overview}</p>
             `
             media_type = "movie";
             ;
         } else {
-            // caso seja série/TV ou outro tipo
             card.innerHTML = `
                 <img src="${imagem}" alt="${filme.name}">
                 <h3>${filme.name}</h3>
-                <p>${filme.overview || ""}</p>
             `
             media_type = "tv";
             ;
@@ -106,7 +103,7 @@ window.addEventListener("load", function () {
         setTimeout(() => {
             loader.style.display = "none";
         }, 500);
-     }
+        }
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -119,4 +116,106 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         carregarTendenciasGeral();
     }
+    carregarGeneros();
+    document.getElementById("filtroGenero").addEventListener("change", filtrarPorGenero);
+    
+    carregarAnos();
+    document.getElementById("filtroAno").addEventListener("change", filtrarPorAno);
+
+    document.getElementById("filtroNota").addEventListener("change", filtrarPorNota);
+
+    document.getElementById("filtroPais").addEventListener("change", filtrarPorPais);
 });
+
+const params = new URLSearchParams(window.location.search)
+const tipo = params.get("tipo");
+
+async function carregarGeneros(tipo = "movie") {
+    const response = await fetch(
+        `${BASE_URL}/genre/${tipo}/list?api_key=${API_KEY}&language=pt-BR`
+    );
+    const data = await response.json();
+    const select = document.getElementById("filtroGenero");
+    select.innerHTML = `<option value="">Todos</option>`;
+    data.genres.forEach(genero => {
+        const option = document.createElement("option");
+        option.value = genero.id;
+        option.textContent = genero.name;
+        select.appendChild(option);
+});
+}
+function filtrarPorGenero() {
+    const generoId = document.getElementById("filtroGenero").value;
+    if (!generoId) {
+        carregarTendenciasGeral();
+        return;
+    }
+    let endpoint = "movie";
+    if (tipo === "serie") {
+        endpoint = "tv";
+    }
+    const url = `${BASE_URL}/discover/${endpoint}?api_key=${API_KEY}&with_genres=${generoId}&language=pt-BR`;
+    requisicaoURL(url);
+}
+
+function carregarAnos() {
+    const selectAno = document.getElementById("filtroAno");
+    const anoAtual = new Date().getFullYear();
+
+    for (let ano = anoAtual; ano >= 1950; ano--) {
+        const option = document.createElement("option");
+        option.value = ano;
+        option.textContent = ano;
+        selectAno.appendChild(option);
+    }
+}
+
+function filtrarPorAno() {
+    const ano = document.getElementById("filtroAno").value;
+
+    if (!ano) {
+        carregarTendenciasGeral();
+        return;
+    }
+
+    let endpoint = "movie";
+
+    if (tipo === "serie") {
+        endpoint = "tv";
+    }
+
+    const url = `${BASE_URL}/discover/${endpoint}?api_key=${API_KEY}&language=pt-BR&primary_release_year=${ano}`;
+
+    requisicaoURL(url);
+}
+
+function filtrarPorNota() {
+    const nota = document.getElementById("filtroNota").value;
+    if (!nota) {
+        carregarTendenciasGeral();
+        return;
+    }
+    let endpoint = "movie";
+
+    if (tipo === "serie") {
+        endpoint = "tv";
+    }
+    const url = `${BASE_URL}/discover/${endpoint}?api_key=${API_KEY}&language=pt-BR&primary_release_year=${nota}`;
+    requisicaoURL(url);
+}
+
+function filtrarPorPais() {
+    const pais = document.getElementById("filtroPais").value;
+    if (!pais) {
+        carregarTendenciasGeral();
+        return;
+    }
+    const params = new URLSearchParams(window.location.search);
+    const tipo = params.get("tipo");
+    let endpoint = "movie";
+    if (tipo === "serie") {
+        endpoint = "tv";
+    }
+    const url = `${BASE_URL}/discover/${endpoint}?api_key=${API_KEY}&language=pt-BR&with_origin_country=${pais}`;
+    requisicaoURL(url);
+}
