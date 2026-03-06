@@ -48,7 +48,7 @@ body {
     transition: 0.3;
 }
 .menu a:hover {
-    color: var(--roxo)
+    color: var(--vermelho)
 }
 .pesquisa-section {
     margin: 2rem 0;
@@ -81,7 +81,7 @@ body {
     transition: 0.3s;
 }
 #botaoTema:hover {
-    background-color: var(--roxo);
+    background-color: var(--vermelho);
     transform: scale(1.1);
 }
 
@@ -99,7 +99,7 @@ body {
 }
 .pesquisa-button:hover {
     transform: scale(1.1);
-    background-color: var(--roxo);
+    background-color: var(--vermelho);
 }
 .footer {
     margin-top: auto;
@@ -182,36 +182,50 @@ body.tema-claro{
 
 #filtroGenero {
     background-color: var(--vermelho);
-    border: none;
-    width: auto; 
+    border: 2px solid var(--vermelho);
+    width: auto;
     transition: 0.3s;
-    border-bottom: 2px solid var(--vermelho)
+    border-bottom: 2px solid var(--vermelho);
+    color: var(--branco);
+    border-radius: 10px;
 }
-
 #filtroAno {
     background-color: var(--vermelho);
-    border: none;
-    width: auto; 
+    border: 2px solid var(--vermelho);
+    width: auto;
     transition: 0.3s;
-    border-bottom: 2px solid var(--vermelho)
+    border-bottom: 2px solid var(--vermelho);
+    color: var(--branco);
+    border-radius: 10px;
 }
-
 #filtroNota {
     background-color: var(--vermelho);
-    border: none;
-    width: auto; 
+    border: 2px solid var(--vermelho);
+    width: auto;
     transition: 0.3s;
-    border-bottom: 2px solid var(--vermelho)
+    border-bottom: 2px solid var(--vermelho);
+    color: var(--branco);
+    border-radius: 10px;
 }
-
 #filtroPais {
     background-color: var(--vermelho);
-    border: none;
-    width: auto; 
+    border: 2px solid var(--vermelho);
+    width: auto;
     transition: 0.3s;
-    border-bottom: 2px solid var(--vermelho)
+    border-bottom: 2px solid var(--vermelho);
+    color: var(--branco);
+    border-radius: 10px;
 }
 
 .detalhes-card{
     display: flex;
+    align-items: center; 
+    gap: 2rem;
+
+}
+.detalhes-card img {
+    width: 300px;
+    height: 450px;
+    border-radius: 8px;
+    border: 2px solid var(--vermelho);
 }
