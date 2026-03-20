@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nome": "Iphone X",
+    "slug": "iphone-x",
+    "imagem": "assets/images/imagem1.jpg",
+    "descricao": "Primeiro iPhone com design totalmente renovado, sem botão Home. Introduziu o Face ID e tela OLED de alta qualidade. Marcou o início da era moderna dos iPhones.",
+    "preco": 999.99,
+    "keywords": ["", "", ""]
+  },
+  {
+    "id": 2,
+    "nome": "Iphone 11",
+    "slug": "iphone-11",
+    "imagem": "assets/images/imagem2.jpg",
+    "descricao": "Grande salto em câmeras, com lente ultra-angular. Melhor bateria e desempenho sólido, focado em custo-benefício.",
+    "preco": 1499.99,
+    "keywords": ["", "", ""]
+  },
+  {
+    "id": 3,
+    "nome": "Iphone 12",
+    "slug": "iphone-12",
+    "imagem": "assets/images/imagem3.jpg",
+    "descricao": "Versões premium com sensor LiDAR, melhorias em fotos noturnas e construção mais sofisticada.",
+    "preco": 1799.99,
+    "keywords": ["", "", ""]
+  },
+  {
+    "id": 4,
+    "nome": "Iphone 13",
+    "slug": "iphone-13",
+    "imagem": "assets/images/imagem4.jpg",
+    "descricao": "Tela com ProMotion (120Hz), câmeras ainda mais avançadas e foco em vídeos profissionais.",
+    "preco": 2299.99,
+    "keywords": ["", "", ""]
+  },
+  {
+    "id": 5,
+    "nome": "Iphone 14",
+    "slug": "iphone-14",
+    "imagem": "assets/images/imagem5.jpg",
+    "descricao": "Evolução do 13, com melhorias em segurança (detecção de acidente) e câmera. O Plus substituiu o Mini com tela maior.",
+    "preco": 3399.99,
+    "keywords": ["", "", ""]
+  },
+  {
+    "id": 6,
+    "nome": "Iphone 15",
+    "slug": "iphone-15",
+    "imagem": "assets/images/imagem6.jpg",
+    "descricao": "Passou a usar USB-C e ganhou melhorias de câmera. Design mais leve com acabamento refinado.",
+    "preco": 4499.99,
+    "keywords": ["", "", ""]
+  },
+  {
+    "id": 7,
+    "nome": "Iphone 16",
+    "slug": "iphone-16",
+    "imagem": "assets/images/imagem7.jpg",
+    "descricao": "Foco em inteligência artificial e melhorias em bateria e câmera. Botão de ação expandido e novos recursos inteligentes.",
+    "preco": 5999.99,
+    "keywords": ["", "", ""]
+  },
+  {
+    "id": 8,
+    "nome": "Iphone 17",
+    "slug": "iphone-17",
+    "imagem": "assets/images/imagem8.jpg",
+    "descricao": "Linha mais recente, com design ainda mais fino, melhorias em IA, câmeras mais avançadas e eficiência energética superior.",
+    "preco": 7999.99,
+    "keywords": ["", "", ""]
+  }
+]
