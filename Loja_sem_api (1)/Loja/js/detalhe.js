@@ -32,7 +32,7 @@ function mostrarDetalhes(produto) {
                         <h1>${produto.nome}</h1>
                         <p>${produto.descricao}</p>
                         <h3>R$ ${produto.preco.toFixed(2)}</h3>
-                        <button class="btn-comprar rounded-pill btn btn-success">Comprar</button>
+                        <button class="btn-comprar rounded-pill btn btn-success" tabindex="0">Comprar</button>
                         <a href="../index.html">Voltar</a>
                         </div>
                         </div>
