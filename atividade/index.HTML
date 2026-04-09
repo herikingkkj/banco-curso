@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang= "pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  </head>
+  <body>
+    <h3>Tela de Login</h3>
+      <form>
+        Email: <input type="email" name="email" id="email" oninput="validarEmail()"><br>
+        <p id="mensagemEmail"></p>
+        Senha: <input type="password" name="senha" id="senha" oninput="validarSenha()"><br>
+        <p id="mensagem"></p>
+        <button onclick="login()" id="entrar">Entrar</button>
+      </form>
+
+    <script>
+    function login() {
+        let email = document.getElementById("email").value;
+        let senha = document.getElementById("senha").value;
+
+        if (email.includes("@") && email.includes(".com") && senha.length >= 8) {
+            alert("login efetuado com sucesso");
+        }else {
+            alert("email ou senha inválidos");
+        }
+    }
+    function validarSenha() {
+        let senha = document.getElementById("senha").value;
+        let mensagem = document.getElementById("mensagem");
+
+        if (senha.length >  0 && senha.length < 8) {
+            mensagem.style.display = "block";
+            mensagem.textContent = "a senha precisa ter pelo menos 8 dígitos";
+        } else {
+            mensagem.style.display = "none";
+        }
+    }
+    function validarEmail() {
+        let email = document.getElementById("email").value;
+        let mensagemEmail = document.getElementById("mensagemEmail");
+
+        if (email.length > 0 && !email.includes("@") || !email.includes(".com")) {
+            mensagemEmail.style.display = "block";
+            mensagemEmail.textContent = "digite um email válido";
+        } else {
+            mensagemEmail.style.display = "none";
+        }
+    }
+    </script>
+    </body>
+    </html>
