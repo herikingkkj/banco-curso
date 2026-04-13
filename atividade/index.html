@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema</title>
+</head>
+
+<body>
+    <h1>Tela de cadastro</h1>
+    <form>
+        Produto: <input type="text" id="produto" oninput="limparMensagem()"><br>
+        Preço: <input type="text" id="preco"><br>
+        Id: <input type="text" id="id"><br>
+        Quantidade: <input type="text" id="quantidade"><br>
+        <p id="mensagem"></p>
+        <button type="button" onclick="validarProduto()">Cadastro</button>
+    </form>
+
+    <script>
+        function validarProduto() {
+            const id = document.getElementById("id").value.trim();
+            const mensagem = document.getElementById("mensagem");
+
+            if (id === "") {
+                mensagem.textContent = "Digite um ID válido!";
+            } else if (id === "1215") {
+                mensagem.textContent = "";
+                alert("Produto validado com sucesso!");
+            } else {
+                mensagem.textContent = "ID inválido";
+            }
+        }
+
+        function limparMensagem() {
+            document.getElementById("mensagem").textContent = "";
+        }
+    </script>
+</body>
+
+</html>
